@@ -1,6 +1,16 @@
 import psycopg2
-from secret_codes import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, PORT
 from psycopg2 import errorcodes
+from parser import debug
+from os import environ
+
+if not debug:
+    DB_USER = environ('DB_USER')
+    DB_PASSWORD = environ('DB_PASSWORD')
+    DB_NAME = environ('DB_NAME')
+    DB_HOST = environ('DB_HOST')
+    PORT = environ('PORT')
+else:
+    from secret_codes import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, PORT
 
 
 def create_table_subscribed():
@@ -69,3 +79,5 @@ def subscribe(user_id):
     cursor.execute('')
     conn.close()
 
+if __name__ == '__main__':
+    create_table_links()
