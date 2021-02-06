@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from fake_useragent import UserAgent
-from secret_codes import TELEGRAM_TOKEN, MY_ID
+from os import environ
 
 from databaser import add_link
 
@@ -9,6 +9,14 @@ import logging
 
 from aiogram import Bot, Dispatcher, executor, types
 import asyncio
+
+debug = False
+
+if not debug:
+    TELEGRAM_TOKEN = environ['TELEGRAM_TOKEN']
+    MY_ID = environ['MY_ID']
+else:
+    from secret_codes import TELEGRAM_TOKEN, MY_ID
 
 URL_PARSE = 'https://chelyabinsk.hh.ru/search/vacancy?clusters=true&enable_snippets=true&text=Python&L_save_area=true&area=104&from=cluster_area&showClusters=true'
 
@@ -59,5 +67,5 @@ def parse(page=0):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.create_task(scheduled(60*60))
+    loop.create_task(scheduled(10))
     executor.start_polling(dp, skip_updates=True)

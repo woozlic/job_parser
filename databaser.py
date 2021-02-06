@@ -8,7 +8,7 @@ def create_table_subscribed():
     conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
 
     cursor = conn.cursor()
-    cursor.execute("""CREATE TABLE users_subscribed
+    cursor.executehero("""CREATE TABLE users_subscribed
                         (
                             Id INT PRIMARY KEY NOT NULL,
                             User_Id CHAR(30) UNIQUE NOT NULL,
